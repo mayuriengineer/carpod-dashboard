@@ -15,7 +15,7 @@ const routes: Routes = [
     component : AddcarpodComponent
   },
   {
-    path: "edit-carbod-view/:id",
+    path: "edit-carbod-view",
     component : EditcarpodComponent
   },
   {

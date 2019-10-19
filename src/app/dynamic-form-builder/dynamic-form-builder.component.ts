@@ -39,10 +39,11 @@ export class DynamicFormBuilderComponent implements OnInit {
       var temp = this._router.url;
       var array = temp.split("/");
       this.current_page = array[1];
-      this._activatedroute.params.subscribe(params => {
-        this.vehicle_id = params['id'];
-        console.log(this.vehicle_id);
+      this._activatedroute.queryParams.subscribe(params => {
+        this.vehicle_id =JSON.parse(params['item']);
+        console.log(this.vehicle_id)
       });
+      
       let fieldsCtrls = {};
       for (let f of this.fields) {
         if (f.type != 'checkbox') {
@@ -58,27 +59,27 @@ export class DynamicFormBuilderComponent implements OnInit {
       this.form = new FormGroup(fieldsCtrls);
     }
  
-  get_all_data_byid(){
+  // get_all_data_byid(){
 
-    const data = {
-      id :this.vehicle_id
-    }
-    this._ProjectService.get_all_data_byid(data)
-    .subscribe(
-      res => {
+  //   const data = {
+  //     id :this.vehicle_id
+  //   }
+  //   this._ProjectService.get_all_data_byid(data)
+  //   .subscribe(
+  //     res => {
      
-        this.form.value.lastName=res.data[0].lname;
+  //       this.form.value.lastName=res.data[0].lname;
      
-        console.log(this.form.value.lastName);
+  //       console.log(this.form.value.lastName);
      
-      },
+  //     },
 
-    );
+  //   );
   
-  }
+  // }
 
   onSubmit(){
-if(!this.vehicle_id){
+if(!this.vehicle_id.id){
   
     this._ProjectService.add_insertdata(this.form.value)
     .subscribe(
@@ -94,7 +95,7 @@ if(!this.vehicle_id){
 else
 {
   const data = {
-    id :this.vehicle_id,
+    id :this.vehicle_id.id,
     firstName :this.form.value.firstName,
     lastName:this.form.value.lastName,
     email:this.form.value.email

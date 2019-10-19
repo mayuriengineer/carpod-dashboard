@@ -24,6 +24,7 @@ export class EditcarpodComponent implements OnInit {
   responce:any;
   email:any;
   dynamicFields:any;
+  all_data:any;
   constructor(private _router: Router, private _activatedroute: ActivatedRoute,
     private _app: AppComponent,private _ProjectService: ProjectService) {
     
@@ -37,7 +38,12 @@ export class EditcarpodComponent implements OnInit {
       this.vehicle_id = params['id'];
       //console.log(this.vehicle_id);
     });
-    this.get_all_data_byid();
+    this._activatedroute.queryParams.subscribe(params => {
+      this.all_data =JSON.parse(params['item']);
+      console.log(this.all_data)
+
+  });
+    // this.get_all_data_byid();
    
   }
 
@@ -71,31 +77,31 @@ export class EditcarpodComponent implements OnInit {
     //console.log(e);
   }
 
-  get_all_data_byid(){
+  // get_all_data_byid(){
 
-    const data = {
-      id :this.vehicle_id
-    }
+  //   const data = {
+  //     id :this.vehicle_id
+  //   }
 
-    this._ProjectService.get_all_data_byid(data)
-    .subscribe(
-      res => {
+  //   this._ProjectService.get_all_data_byid(data)
+  //   .subscribe(
+  //     res => {
         
-        console.log(res);
-       // this.dynamicFields = res.results;
-        console.log(JSON.stringify(res)); 
-        this.firstName=res.data[0].fname;
-          this.lastName=res.data[0].lname;
-          this.email=res.data[0].email;
-          this.fields[0].value = this.firstName;
-          this.fields[1].value = this.lastName;
-          this.fields[2].value = this.email;
+  //       console.log(res);
+  //      // this.dynamicFields = res.results;
+  //       console.log(JSON.stringify(res)); 
+  //       this.firstName=res.data[0].firstName;
+  //         this.lastName=res.data[0].lastName;
+  //         this.email=res.data[0].email;
+  //         this.fields[0].value = this.firstName;
+  //         this.fields[1].value = this.lastName;
+  //         this.fields[2].value = this.email;
           
-       },
+  //      },
 
-    );
+  //   );
   
-  }
+  // }
   getFields() {
     this.form = new FormGroup({
       fields: new FormControl(JSON.stringify(this.fields))
@@ -105,6 +111,9 @@ export class EditcarpodComponent implements OnInit {
      
       this.fields = JSON.parse(update.fields);
     });
+    this.fields[0].value = this.all_data.firstName;
+    this.fields[1].value = this.all_data.lastName;
+    this.fields[2].value = this.all_data.email;
        return this.fields;
      }
  

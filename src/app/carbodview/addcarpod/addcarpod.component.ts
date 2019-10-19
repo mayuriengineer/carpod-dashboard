@@ -32,12 +32,8 @@ export class AddcarpodComponent implements OnInit {
       value: '',
       required: true,
     },
-
-    
-    
-  ];
-
-  constructor() {
+ ];
+ constructor() {
     this.form = new FormGroup({
       fields: new FormControl(JSON.stringify(this.fields))
     })
@@ -49,8 +45,7 @@ export class AddcarpodComponent implements OnInit {
 
   onUpload(e) {
     console.log(e);
-
-  }
+ }
 
   getFields() {
     return this.fields;

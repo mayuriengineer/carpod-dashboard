@@ -1,5 +1,5 @@
 import { Component, OnInit, Renderer, ElementRef, ViewChild } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, NavigationExtras } from '@angular/router';
 import { ProjectService } from '../project.service';
 import { ActivatedRoute } from '@angular/router';
 import { environment } from '../../environments/environment.prod';
@@ -102,6 +102,15 @@ export class CarbodviewComponent implements OnInit {
   ngOnDestroy(): void {
     // Do not forget to unsubscribe the event
     this.dtTrigger.unsubscribe();
+  }
+  edit_pass(data){
+    console.log(data);
+    let navigationExtras: NavigationExtras = {
+      queryParams: {
+          "item": JSON.stringify(data)
+      }
+  };
+    this._router.navigate(['/edit-carbod-view'],navigationExtras)
   }
 
 }

@@ -13,12 +13,14 @@ import { HelloComponent } from './hello.component';
 import { CarbodviewComponent } from './carbodview/carbodview.component';
 import { AddcarpodComponent } from './carbodview/addcarpod/addcarpod.component';
 import { EditcarpodComponent } from './editcarpod/editcarpod.component';
-
-
+import {DataTablesModule} from 'angular-datatables';
+import { FormsModule } from '@angular/forms';
+import { Person } from 'person';
+import { ViewcarpodComponent } from './viewcarpod/viewcarpod.component';
 
 @NgModule({
-  imports:      [ BrowserModule, ReactiveFormsModule , DynamicFormBuilderModule, RouterModule.forRoot([]),AppRoutingModule],
-  declarations: [ AppComponent, HelloComponent, CarbodviewComponent, AddcarpodComponent, EditcarpodComponent ],
+  imports:      [ BrowserModule, ReactiveFormsModule , DynamicFormBuilderModule, RouterModule.forRoot([]),AppRoutingModule,DataTablesModule,FormsModule],
+  declarations: [ AppComponent, HelloComponent, CarbodviewComponent, AddcarpodComponent, EditcarpodComponent, ViewcarpodComponent ],
   bootstrap:    [ AppComponent ]
  
 })

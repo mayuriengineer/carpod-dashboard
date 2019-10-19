@@ -28,76 +28,93 @@ import { HttpModule } from "@angular/http";
 export class DynamicFormBuilderComponent implements OnInit {
   current_page:string;
   vehicle_id:any;
+  id:any;
   constructor(private _router: Router, private _activatedroute: ActivatedRoute,
     private _app: AppComponent,private _ProjectService: ProjectService) { }
- // @Output() onSubmit = new EventEmitter();
-  @Input() fields: any[] = [];
-  form: FormGroup;
-  
+    
+    @Input() fields: any[] = [];
+    form: FormGroup;
 
-  ngOnInit() {
-    var temp = this._router.url;
-    var array = temp.split("/");
-    this.current_page = array[1];
-	   this._activatedroute.params.subscribe(params => {
-      this.vehicle_id = params['id'];
-      console.log(this.vehicle_id);
+    ngOnInit() {
+      var temp = this._router.url;
+      var array = temp.split("/");
+      this.current_page = array[1];
+      this._activatedroute.params.subscribe(params => {
+        this.vehicle_id = params['id'];
+        console.log(this.vehicle_id);
       });
-      this.get_all_data_byid();
-    let fieldsCtrls = {};
-    for (let f of this.fields) {
-      if (f.type != 'checkbox') {
-        fieldsCtrls[f.name] = new FormControl(f.value || '', Validators.required)
-      } else {
-        let opts = {};
-        for (let opt of f.options) {
-          opts[opt.key] = new FormControl(opt.value);
+      let fieldsCtrls = {};
+      for (let f of this.fields) {
+        if (f.type != 'checkbox') {
+          fieldsCtrls[f.name] = new FormControl(f.value || '', Validators.required)
+        } else {
+          let opts = {};
+          for (let opt of f.options) {
+            opts[opt.key] = new FormControl(opt.value);
+          }
+          fieldsCtrls[f.name] = new FormGroup(opts)
         }
-        fieldsCtrls[f.name] = new FormGroup(opts)
       }
+      this.form = new FormGroup(fieldsCtrls);
     }
-    this.form = new FormGroup(fieldsCtrls);
-  }
  
   get_all_data_byid(){
 
     const data = {
       id :this.vehicle_id
     }
-console.log(data);
-
     this._ProjectService.get_all_data_byid(data)
     .subscribe(
       res => {
-        console.log(res.data[0]);
-        this.form.value.lastName=res.data[0].lname;
-        console.log(this.form.value.lastName);
-        
-        
-
-      
      
-        //this._app.loading = false;
-   
+        this.form.value.lastName=res.data[0].lname;
+     
+        console.log(this.form.value.lastName);
+     
       },
 
     );
   
   }
 
-  onSubmit()
-  {
-    console.log("mayu");
-    console.log(this.form.value);
+  onSubmit(){
+if(!this.vehicle_id){
+  
     this._ProjectService.add_insertdata(this.form.value)
     .subscribe(
       res => {
        
     console.log(res);
   	alert("record save sucessfully");
- 
+    this._router.navigate(["/create-carbod-view"]);
       },
 
     );
+}
+else
+{
+  const data = {
+    id :this.vehicle_id,
+    firstName :this.form.value.firstName,
+    lastName:this.form.value.lastName,
+    email:this.form.value.email
+
+  }
+  console.log(data);
+  console.log(this.form.value);
+  this._ProjectService.uppdate_insertdata(data)
+  .subscribe(
+    res => {
+     
+  console.log(res);
+  alert("record update sucessfully");
+  this._router.navigate(["/create-carbod-view"]);
+
+    },
+
+  );
+
+}
+
   } 
 }

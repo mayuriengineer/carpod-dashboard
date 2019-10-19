@@ -4,6 +4,7 @@ import { CarbodviewComponent } from './carbodview/carbodview.component';
 import { AddcarpodComponent } from './carbodview/addcarpod/addcarpod.component';
 import { EditcarpodComponent } from './editcarpod/editcarpod.component';
 import { AppComponent } from './app.component';
+import { ViewcarpodComponent } from './viewcarpod/viewcarpod.component';
 const routes: Routes = [
   {
     path: "create-carbod-view",
@@ -16,6 +17,10 @@ const routes: Routes = [
   {
     path: "edit-carbod-view/:id",
     component : EditcarpodComponent
+  },
+  {
+    path: "view-carbod-view/:id",
+    component : ViewcarpodComponent
   },
 
 ];

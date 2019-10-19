@@ -15,12 +15,16 @@ export class ProjectService {
   private _getalldataUrl = `${environment.api}/fatchallData`;
   private _getalldatabyidUrl = `${environment.api}/fatchData`;
   private _deleterecordbyidUrl = `${environment.api}/delete`;
+  private _updateinsertUrl = `${environment.api}/edit`;
   constructor(private http: HttpClient) { }
   add_insertdata(data){
     return this.http.post<any>(this._addinsertUrl,data);
   }
   get_all_data(){
     return this.http.get<any>(this._getalldataUrl);
+  }
+  uppdate_insertdata(data){
+    return this.http.post<any>(this._updateinsertUrl,data);
   }
   delete_data_byid(data){
     return this.http.post<any>(this._deleterecordbyidUrl,data);

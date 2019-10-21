@@ -1,6 +1,6 @@
 import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
-import { ProjectService } from '../project.service';
+import { ProjectService } from './project.service';
  import { ActivatedRoute } from '@angular/router';
  import { AppComponent } from '../app.component';
  import { environment } from '../../environments/environment.prod';
@@ -28,6 +28,7 @@ import { HttpModule } from "@angular/http";
 export class DynamicFormBuilderComponent implements OnInit {
   current_page:string;
   vehicle_id:any;
+  all_data:any;
   id:any;
   constructor(private _router: Router, private _activatedroute: ActivatedRoute,
     private _app: AppComponent,private _ProjectService: ProjectService) { }
@@ -40,7 +41,7 @@ export class DynamicFormBuilderComponent implements OnInit {
       var array = temp.split("/");
       this.current_page = array[1];
       this._activatedroute.queryParams.subscribe(params => {
-        this.vehicle_id =JSON.parse(params['item']);
+        this.vehicle_id =params['item'];
         console.log(this.vehicle_id)
       });
       
@@ -79,7 +80,8 @@ export class DynamicFormBuilderComponent implements OnInit {
   // }
 
   onSubmit(){
-if(!this.vehicle_id.id){
+    
+if(!this.vehicle_id){
   
     this._ProjectService.add_insertdata(this.form.value)
     .subscribe(
@@ -87,15 +89,17 @@ if(!this.vehicle_id.id){
        
     console.log(res);
   	alert("record save sucessfully");
-    this._router.navigate(["/create-carbod-view"]);
+    this._router.navigate(["/dashboard"]);
       },
 
     );
 }
 else
 {
+  this.all_data=JSON.parse(this.vehicle_id);
+  console.log(this.all_data);
   const data = {
-    id :this.vehicle_id.id,
+    id :this.all_data.id,
     firstName :this.form.value.firstName,
     lastName:this.form.value.lastName,
     email:this.form.value.email
@@ -109,7 +113,7 @@ else
      
   console.log(res);
   alert("record update sucessfully");
-  this._router.navigate(["/create-carbod-view"]);
+  this._router.navigate(["/dashboard"]);
 
     },
 

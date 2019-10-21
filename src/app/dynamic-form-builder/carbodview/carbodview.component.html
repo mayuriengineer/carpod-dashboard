@@ -27,9 +27,19 @@
         <td>{{ person.lastName }}</td>
         <td>{{person.email}} </td>
         <td> 
-          <a class="btn btn-info waves-effect waves-light"  routerLink="../view-carbod-view/{{person.id}}" class="active"><i class="fa fa-eye"></i>view</a>
+         
+              <div class="dropdown">
+                  <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Action
+                  <span class="caret"></span></button>
+                  <ul class="dropdown-menu">
+                    <li><a class="dropdown-item" href="../view-carbod-view/{{person.id}}">View</a></li>
+                    <li> <a class="dropdown-item" (click)="edit_pass(person)"  href="#">Edit</a></li>
+                    <li> <a class="dropdown-item" (click)="delete_record(person.id);" href="#">Delete</a></li>
+                  </ul>
+                </div>
+          <!-- <a class="btn btn-info waves-effect waves-light"  routerLink="../view-carbod-view/{{person.id}}" class="active"><i class="fa fa-eye"></i>view</a>
           <a class="btn btn-info waves-effect waves-light" (click)="edit_pass(person)"   class="active"> <i class="fa fa-edit"></i>Edit</a>
-          <a class="btn btn-info waves-effect waves-light" (click)="delete_record(person.id);"  class="active"><i class="fa fa-trash"></i>Delete</a>
+          <a class="btn btn-info waves-effect waves-light" (click)="delete_record(person.id);"  class="active"><i class="fa fa-trash"></i>Delete</a> -->
         </td>
         </tr>
       </tbody>

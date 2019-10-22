@@ -51,6 +51,7 @@ const Routes: Routes = [
     NgxPaginationModule,
     FormsModule,
     RouterModule.forChild(Routes),
+    NgxPaginationModule
 
     
   ],

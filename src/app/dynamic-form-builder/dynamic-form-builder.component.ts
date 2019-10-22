@@ -5,7 +5,7 @@ import { ProjectService } from './project.service';
  import { AppComponent } from '../app.component';
  import { environment } from '../../environments/environment.prod';
  import { Subscription } from 'rxjs';
- import { Router } from '@angular/router';
+ import { Router, NavigationExtras } from '@angular/router';
 import { HttpModule } from "@angular/http";
 @Component({
   selector: 'dynamic-form-builder',
@@ -28,6 +28,7 @@ import { HttpModule } from "@angular/http";
 export class DynamicFormBuilderComponent implements OnInit {
   current_page:string;
   vehicle_id:any;
+  page_number:any;
   all_data:any;
   id:any;
   constructor(private _router: Router, private _activatedroute: ActivatedRoute,
@@ -42,7 +43,9 @@ export class DynamicFormBuilderComponent implements OnInit {
       this.current_page = array[1];
       this._activatedroute.queryParams.subscribe(params => {
         this.vehicle_id =params['item'];
-        console.log(this.vehicle_id)
+        this.page_number=params['page'];
+        console.log(this.vehicle_id);
+        console.log(this.page_number);
       });
       
       let fieldsCtrls = {};
@@ -96,6 +99,14 @@ if(!this.vehicle_id){
 }
 else
 {
+
+  let navigationExtras: NavigationExtras = {
+    queryParams: {
+        
+        "page":this.page_number
+    }
+};
+  
   this.all_data=JSON.parse(this.vehicle_id);
   console.log(this.all_data);
   const data = {
@@ -113,7 +124,7 @@ else
      
   console.log(res);
   alert("record update sucessfully");
-  this._router.navigate(["/dashboard"]);
+  this._router.navigate(['/dashboard'],navigationExtras);
 
     },
 

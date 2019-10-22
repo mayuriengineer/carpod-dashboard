@@ -12,7 +12,7 @@ import 'rxjs/Rx';
 @Injectable()
 export class ProjectService {
   private _addinsertUrl = `${environment.api}/insert`;
-  private _getalldataUrl = `${environment.api}/fatchallData`;
+  private _getalldataUrl = `${environment.api}/fatchOrderByData`;
   private _getalldatabyidUrl = `${environment.api}/fatchData`;
   private _deleterecordbyidUrl = `${environment.api}/delete`;
   private _updateinsertUrl = `${environment.api}/edit`;
@@ -20,8 +20,8 @@ export class ProjectService {
   add_insertdata(data){
     return this.http.post<any>(this._addinsertUrl,data);
   }
-  get_all_data(){
-    return this.http.get<any>(this._getalldataUrl);
+  get_all_data(data){
+    return this.http.post<any>(this._getalldataUrl,data);
   }
   uppdate_insertdata(data){
     return this.http.post<any>(this._updateinsertUrl,data);

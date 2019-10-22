@@ -18,6 +18,9 @@ import { ViewcarpodComponent } from './viewcarpod/viewcarpod.component';
 import {DataTablesModule} from 'angular-datatables';
 import { RouterModule } from '@angular/router';
 import { Routes } from '@angular/router';
+import { DataFilterPipe } from './dataFilter.pipe';
+import {NgxPaginationModule} from 'ngx-pagination';
+import { FormsModule } from '@angular/forms';
 const Routes: Routes = [
   { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
   {
@@ -45,7 +48,8 @@ const Routes: Routes = [
     HttpModule,
     HttpClientModule,
     DataTablesModule,
-   
+    NgxPaginationModule,
+    FormsModule,
     RouterModule.forChild(Routes),
 
     
@@ -61,7 +65,8 @@ const Routes: Routes = [
      ViewcarpodComponent,
     FileComponent,
     RadioComponent,
-    EditcarpodComponent
+    EditcarpodComponent,
+    DataFilterPipe,
   ],
   exports: [DynamicFormBuilderComponent],
   providers: [ProjectService

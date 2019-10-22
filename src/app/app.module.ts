@@ -13,12 +13,12 @@ import { HelloComponent } from './hello.component';
 
 
 //import {DataTablesModule} from 'angular-datatables';
-import { FormsModule } from '@angular/forms';
+
 import { Person } from 'person';
 
 
 @NgModule({
-  imports:      [ BrowserModule, ReactiveFormsModule , DynamicFormBuilderModule,RouterModule.forRoot([]), FormsModule,AppRoutingModule],
+  imports:      [ BrowserModule, ReactiveFormsModule , DynamicFormBuilderModule,RouterModule.forRoot([]),AppRoutingModule],
   declarations: [ AppComponent, HelloComponent ],
   bootstrap:    [ AppComponent ]
  

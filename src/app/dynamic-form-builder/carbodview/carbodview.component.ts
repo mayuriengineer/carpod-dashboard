@@ -9,6 +9,7 @@ import { Observable } from 'rxjs/Rx';
 import { Http, Response } from '@angular/http';
 import { Person } from 'person';
 import 'rxjs/add/operator/map';
+
 @Component({
   selector: 'app-carbodview',
   templateUrl: './carbodview.component.html',
@@ -16,57 +17,124 @@ import 'rxjs/add/operator/map';
 })
 export class CarbodviewComponent implements OnInit {
   dtOptions: DataTables.Settings = {};
-  //persons: Person[] = [];
   persons: Person[] = [];
+  collection:{data:[]};
+  //persons: { count: 60, data: [] }
+  //collection = { count: 60, data: [] };
+  list_type: any;
+  namesearch: any;
+  searchText;
+  length:number;
+  config: any;
   // We use this trigger because fetching the list of persons can be quite long,
   // thus we ensure the data is fetched before rendering
   dtTrigger: Subject<any> = new Subject<any>();
-  alldata:any;
+  alldata:{ count: 60, data: [] }
   delete_id:any;
+  page_number:any;
   modeldisplay2:any=false;
   applyback:any=false;
   constructor( private http: Http,private _router: Router, private _activatedroute: ActivatedRoute,
     private _ProjectService: ProjectService) { }
 
     ngOnInit(): void {
+      this._activatedroute.queryParams.subscribe(params => {
+      
+        this.page_number=params['page'];
+        
+      });
+      this.list_type = 'ascending';
+      console.log(this.dtOptions);
       this.dtOptions = {
-        pagingType: 'full_numbers',
-        pageLength: 5,
+       // pagingType: 'full_numbers',
+        //pageLength: 5,
+        "paging": false,
+        "ordering": false,
+        "searching": false,
         "stateSave": true
       };
-      this._ProjectService.get_all_data()
+      const data = {
+        order_by: this.list_type,
+      }
+      console.log(data);
+      this._ProjectService.get_all_data(data)
       .subscribe(
         res => {
           console.log(res);
           this.persons = res.data;
+          this.length=res.data.length;
+       console.log( this.length);
           this.dtTrigger.next();
           console.log(this.persons);
          
         },
   
       );
-      //this.get_all_data_record();
+
+      for (var i = 0; i < this.length; i++) {
+        console.log(this.length);
+        this.persons.push(
+          {
+            id: i + 1,
+            value: "items number " + (i + 1)
+          }
+        );
+      }
+      this.config = {
+        itemsPerPage: 4,
+        currentPage: this.page_number,
+        totalItems: this.collection
+      };
+      
     }
       private extractData(res: Response) {
     const body = res.json();
     return body.data || {};
   }
-//   get_all_data_record(){
-    
-// console.log("mayu");
-//     this._ProjectService.get_all_data()
-//     .subscribe(
-//       res => {
-//         console.log(res);
-//         this.alldata = res.data;
-//         this.dtTrigger.next();
-//         console.log( this.alldata);
-       
-//       },
 
-//     );
+  sorting_in_list(listtype) {
+    this.list_type = listtype;
+    console.log(this.list_type);
+    const data = {
+      order_by: this.list_type,
+    }
+    console.log(data);
+    this._ProjectService.get_all_data(data)
+    .subscribe(
+      res => {
+        console.log(res);
+        this.persons = res.data;
+        // this.length=res.data.length;
+        // console.log( this.length);
+        console.log(this.persons);
+       
+      },
+
+    );
+    // for (var i = 0; i < this.length; i++) {
+    //   console.log(this.length);
+    //   this.persons.push(
+    //     {
+    //       id: i + 1,
+    //       value: "items number " + (i + 1)
+    //     }
+    //   );
+    // }
+    
+    
+    //   this.config = {
+    //     itemsPerPage: 4,
+    //     currentPage: 1,
+    //     totalItems: this.length
+    //   };
+    
+   
+   
+
+  }
   
-//   }
+  
+
   delete_record(id){
     this.delete_id = id;
     this.modeldisplay2=true;
@@ -113,10 +181,17 @@ export class CarbodviewComponent implements OnInit {
     console.log(data);
     let navigationExtras: NavigationExtras = {
       queryParams: {
-          "item": JSON.stringify(data)
+          "item": JSON.stringify(data),
+          "page":this.config.currentPage
       }
   };
     this._router.navigate(['/edit-carbod-view'],navigationExtras)
+  }
+
+  pageChanged(event){
+    console.log(event);
+    this.config.currentPage = event;
+    console.log(this.config.currentPage);
   }
 
 }

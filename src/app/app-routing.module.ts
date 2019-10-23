@@ -11,6 +11,11 @@ export const routes: Routes = [
   {
     path: 'app',
     loadChildren:
+      './shared/shared.module'
+  },
+  {
+    path: 'app',
+    loadChildren:
       './carbodview/dynamic-form-builder.module'
   },
   {

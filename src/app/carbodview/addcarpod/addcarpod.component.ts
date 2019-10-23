@@ -6,7 +6,7 @@ import { FormGroup, FormControl } from '@angular/forms';
   styleUrls: ['./addcarpod.component.css']
 })
 export class AddcarpodComponent implements OnInit {
-
+  
   public form: FormGroup;
   unsubcribe: any
 
@@ -34,6 +34,9 @@ export class AddcarpodComponent implements OnInit {
     },
  ];
  constructor() {
+    
+  }
+  ngOnInit() {
     this.form = new FormGroup({
       fields: new FormControl(JSON.stringify(this.fields))
     })
@@ -42,7 +45,6 @@ export class AddcarpodComponent implements OnInit {
       this.fields = JSON.parse(update.fields);
     });
   }
-
   onUpload(e) {
     console.log(e);
  }
@@ -55,7 +57,6 @@ export class AddcarpodComponent implements OnInit {
     this.unsubcribe();
   }
 
-  ngOnInit() {
-  }
+ 
 
 }

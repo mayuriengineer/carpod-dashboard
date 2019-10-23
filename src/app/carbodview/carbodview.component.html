@@ -8,32 +8,99 @@
 </ul>
 </div>
 </div>
-   
-<div class="table-responsive">
-  <table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" class="row-border hover" id="example">
-    <thead>
-      <tr>
-        <th>ID</th>
-        <th>First name</th>
-        <th>Last name</th>
-        <th >Email</th>
-        <th >Action</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor="let person of persons">
-        <td>{{ person.id }}</td>
-        <td>{{ person.firstName }}</td>
-        <td>{{ person.lastName }}</td>
-        <td>{{person.email}} </td>
-        <td> 
-          <a class="btn btn-info waves-effect waves-light"  routerLink="../view-carbod-view/{{person.id}}" class="active"><i class="fa fa-eye"></i>view</a>
-          <a class="btn btn-info waves-effect waves-light" (click)="edit_pass(person)"   class="active"> <i class="fa fa-edit"></i>Edit</a>
-          <a class="btn btn-info waves-effect waves-light" (click)="delete_record(person.id);"  class="active"><i class="fa fa-trash"></i>Delete</a>
-        </td>
-        </tr>
-      </tbody>
+<span class ="pagination" >
+  <input class="form-control" placeholder="Search" type="text" [(ngModel)]="namesearch">
+</span>
+<div class="table-responsive" >
+    <table class="table">
+        <thead>
+            <tr *ngIf="list_type=='descendingById'">
+                <th (click)="sorting_in_list('ascendingById');">ID</th>
+                <th (click)="sorting_in_list('ascendingByFname');">First name</th>
+                <th (click)="sorting_in_list('ascendingByLname');">Last name</th>
+                <th (click)="sorting_in_list('ascendingByEmail');">Email</th>
+                <th>Action</th>
+              </tr>
+              <tr *ngIf="list_type=='descendingByFname'">
+                <th (click)="sorting_in_list('ascendingById');">ID</th>
+                <th (click)="sorting_in_list('ascendingByFname');">First name</th>
+                <th (click)="sorting_in_list('ascendingByLname');">Last name</th>
+                <th (click)="sorting_in_list('ascendingByEmail');">Email</th>
+                <th>Action</th>
+              </tr>
+              <tr *ngIf="list_type=='descendingByLname'">
+                <th (click)="sorting_in_list('ascendingById');">ID</th>
+                <th (click)="sorting_in_list('ascendingByFname');">First name</th>
+                <th (click)="sorting_in_list('ascendingByLname');">Last name</th>
+                <th (click)="sorting_in_list('ascendingByEmail');">Email</th>
+                <th>Action</th>
+              </tr>
+              <tr *ngIf="list_type=='descendingByEmail'">
+                <th (click)="sorting_in_list('ascendingById');">ID</th>
+                <th (click)="sorting_in_list('ascendingByFname');">First name</th>
+                <th (click)="sorting_in_list('ascendingByLname');">Last name</th>
+                <th (click)="sorting_in_list('ascendingByEmail');">Email</th>
+                <th>Action</th>
+              </tr>
+              <tr *ngIf="list_type=='ascendingById'">
+                <th (click)="sorting_in_list('descendingById');">ID</th>
+                <th (click)="sorting_in_list('descendingByFname');">First name</th>
+                <th (click)="sorting_in_list('descendingByLname');">Last name</th>
+                <th (click)="sorting_in_list('descendingByEmail');" >Email</th>
+                <th >Action</th>
+              </tr>
+                <tr *ngIf="list_type=='ascendingByFname'">
+                  <th (click)="sorting_in_list('descendingById');">ID</th>
+                  <th (click)="sorting_in_list('descendingByFname');">First name</th>
+                  <th (click)="sorting_in_list('descendingByLname');">Last name</th>
+                  <th (click)="sorting_in_list('descendingByEmail');" >Email</th>
+                  <th >Action</th>
+                </tr>
+                <tr *ngIf="list_type=='ascendingByLname'">
+                  <th (click)="sorting_in_list('descendingById');">ID</th>
+                  <th (click)="sorting_in_list('descendingByFname');">First name</th>
+                  <th (click)="sorting_in_list('descendingByLname');">Last name</th>
+                  <th (click)="sorting_in_list('descendingByEmail');" >Email</th>
+                  <th >Action</th>
+                </tr>
+                <tr *ngIf="list_type=='ascendingByEmail'">
+                  <th (click)="sorting_in_list('descendingById');">ID</th>
+                  <th (click)="sorting_in_list('descendingByFname');">First name</th>
+                  <th (click)="sorting_in_list('descendingByLname');">Last name</th>
+                  <th (click)="sorting_in_list('descendingByEmail');" >Email</th>
+                  <th >Action</th>
+                </tr>
+        
+        </thead>
+        <tbody>
+            <tr *ngFor="let person of persons | paginate: config | dataFilter:namesearch">
+                <td>{{ person.id }}</td>
+                <td>{{ person.firstName }}</td>
+                <td>{{ person.lastName }}</td>
+                <td>{{person.email}} </td>
+                <td> 
+                 
+                      <div class="dropdown">
+                          <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Action
+                          <span class=""></span></button>
+                          <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="../view-carbod-view/{{person.id}}">View</a></li>
+                            <li> <a class="dropdown-item" (click)="edit_pass(person)" >Edit</a></li>
+                            <li> <a class="dropdown-item" (click)="delete_record(person.id);" >Delete</a></li>
+                          </ul>
+                        </div>
+                  <!-- <a class="btn btn-info waves-effect waves-light"  routerLink="../view-carbod-view/{{person.id}}" class="active"><i class="fa fa-eye"></i>view</a>
+                  <a class="btn btn-info waves-effect waves-light" (click)="edit_pass(person)"   class="active"> <i class="fa fa-edit"></i>Edit</a>
+                  <a class="btn btn-info waves-effect waves-light" (click)="delete_record(person.id);"  class="active"><i class="fa fa-trash"></i>Delete</a> -->
+                </td>
+                </tr>
+        </tbody>
       </table>
+
+      <div class ="pagination">
+        <pagination-controls (pageChange)="pageChanged($event)"></pagination-controls>
+      </div>
+      
 </div>
 </div>
 <div class="modal" *ngIf="modeldisplay2" [style.background]="applyback?'#21212185':'red'" id="Modalupdate2" tabindex="-1"

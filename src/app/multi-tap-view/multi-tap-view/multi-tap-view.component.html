@@ -1,0 +1,45 @@
+<div class="row">
+<div class="col-sm-12">
+<div class="nav navbar-nav">
+<ul class="nav nav-tabs customTab" role="tablist">
+<li role="presentation" [ngClass]="showinternal ? 'active' : ''"><a href="javascript:void(0)"
+  title="Internal List" data-toggle="tab-1" (click)="openDialog()"><strong>Personal Info</strong></a></li>
+<li role="presentation" [ngClass]="showexternal ? '' : 'active'"><a href="javascript:void(0)"
+ data-toggle="tab-2" (click)="openDialog1()"><strong>Actvities</strong></a></li>
+ <li role="presentation" [ngClass]="showother ? '' : 'active'"><a href="javascript:void(0)"
+  data-toggle="tab-3" (click)="open()"><strong>Transactions</strong></a></li>
+</ul> </div>
+  </div>
+</div>
+<div class="row">
+<div class="col-sm-12">
+ <div *ngIf="showinternal">
+<table class="table table-borderless w-100 mt-4">
+<tbody>
+<tr>
+<td><strong>Full Name :</strong> {{ firstName }}</td>
+<td><strong>Website :</strong> {{ lastName }}</td>
+</tr>
+<tr>
+<td><strong>Location :</strong> {{ lastName }}</td>
+<td><strong>Email :</strong> {{ email }}</td>
+</tr>
+<tr>
+<td><strong>Languages :</strong> English, German, Spanish.</td>
+<td><strong>Phone :</strong> +73646 4563</td>
+</tr>
+ </tbody></table>
+         
+<!-- </div> -->
+</div>
+<div *ngIf="showexternal">
+   <app-carbodview></app-carbodview>
+ </div>
+
+                    
+<div *ngIf="showother">
+<app-carbodview></app-carbodview>
+ </div>
+</div>
+</div>
+ 

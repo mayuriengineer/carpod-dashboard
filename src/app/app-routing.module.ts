@@ -1,31 +1,26 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-//import { CarbodviewComponent } from './carbodview/carbodview.component';
-import { AppComponent } from './app.component';
-export const routes: Routes = [
-  { path: '', redirectTo: '', pathMatch: 'full' },
-  // {
-  //     path: '',
-  //    children: [{ path: 'dashboard', component: CarbodviewComponent }]
-  //    },
+import { DetailsComponent } from './details/details.component';
+import { DashboardComponent } from './dashboard/dashboard.component';
+import { VoAddnewComponent } from './vo-addnew/vo-addnew.component';
+const routes: Routes = [
   {
-    path: 'app',
-    loadChildren:
-      './shared/shared.module'
+    path: "dashboard",
+    component : DashboardComponent
   },
   {
-    path: 'app',
-    loadChildren:
-      './carbodview/dynamic-form-builder.module'
+    path: "dashboard",
+    component : DashboardComponent
   },
   {
-    path: 'app',
-    loadChildren:
-    './multi-tap-view/multi-tap-view.module'
+    path: "details/:state_name",
+    component : DetailsComponent
   },
-
-  { path: '**', redirectTo: '' }
-]
+  {
+    path: "vo_addnew",
+    component : VoAddnewComponent
+  },
+];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],

@@ -9,27 +9,22 @@ import { map } from 'rxjs/operators';
 import 'rxjs/add/operator/map';
 import 'rxjs/Rx';
 
-@Injectable()
+@Injectable({
+  providedIn: 'root'
+})
 export class ProjectService {
-  private _addinsertUrl = `${environment.api}/insert`;
-  private _getalldataUrl = `${environment.api}/fatchallData`;
-  private _getalldatabyidUrl = `${environment.api}/fatchData`;
-  private _deleterecordbyidUrl = `${environment.api}/delete`;
-  private _updateinsertUrl = `${environment.api}/edit`;
+  private _getmenubyurl = `${environment.api}/getMenu`;
+ 
   constructor(private http: HttpClient) { }
-  add_insertdata(data){
-    return this.http.post<any>(this._addinsertUrl,data);
+
+  get_menu_data(){
+    return this.http.get<any>(this._getmenubyurl);
   }
-  get_all_data(){
-    return this.http.get<any>(this._getalldataUrl);
-  }
-  uppdate_insertdata(data){
-    return this.http.post<any>(this._updateinsertUrl,data);
-  }
-  delete_data_byid(data){
-    return this.http.post<any>(this._deleterecordbyidUrl,data);
-  }
-  get_all_data_byid(data){
-    return this.http.post<any>(this._getalldatabyidUrl,data);
+
+  get_master_list_view(data){
+    console.log(data);
+    
+    return this.http.get<any>(`${environment.api}`+'/openState?state_name='+data);
+    
   }
 }

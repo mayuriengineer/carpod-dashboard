@@ -1,0 +1,53 @@
+<div class="container">
+    <div class="clearfix">
+      <div class="col-md-3 col-xs-12 col-sm-12">
+        <div class="button-list pull-left">
+          <a *ngIf="add_option" class="btn btn-primary" href={{add_option.destination}}
+            role="button">{{add_option.label}}</a>
+        </div>
+      </div>
+  
+      <div class="col-md-6 hidden-xs hidden-sm"></div>
+  
+      <div class="col-md-3 col-xs-12 col-sm-12" *ngIf="has_search">
+        <div class="">
+          <input class="pull-right form-control" placeholder="Search" type="text" [(ngModel)]="namesearch">
+        </div>
+      </div>
+  
+      <table class="table" style="margin-top: 6rem;">
+        <thead>
+          <tr>
+            <th *ngIf="has_serial_no">ID</th>
+            <th *ngFor="let header of header_list">{{header.column_label}}  <i *ngIf="header.sortable" class="fa fa-sort" aria-hidden="true"></i></th>
+            <th *ngIf="actions">Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let list of list_view   | dataFilter:namesearch ; let i=index">
+            <td *ngIf="has_serial_no">{{i+1}}</td>
+            <td>{{list.name}}</td>
+            <td>{{list.address}}</td>
+            <td>
+  
+              <div class="dropdown">
+                <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Action
+                  <span class=""></span></button>
+                <ul class="dropdown-menu">
+                  <li *ngFor="let acts of btn_action"><a *ngIf="acts.type =='LINK' && acts.label =='View'"
+                      class="dropdown-item" href="../vo_editprofile/{{list.id}}">{{acts.label}}</a><a
+                      *ngIf="acts.type =='LINK' && acts.label =='Edit'" class="dropdown-item"
+                      (click)="edit_pass(list)">{{acts.label}}</a><a *ngIf="acts.type =='ACTION' && acts.label =='Block'"
+                      class="dropdown-item" (click)="delete_record(list.id);">{{acts.label}}</a></li>
+  
+                </ul>
+              </div>
+  
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <!-- <div class ="pagination" style="float: right; margin-right: 2rem;">
+          <pagination-controls (pageChange)="pageChanged($event)"></pagination-controls>
+        </div> -->
+    </div>

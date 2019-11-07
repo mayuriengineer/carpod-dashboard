@@ -20,14 +20,37 @@
           <tr>
             <th *ngIf="has_serial_no">ID</th>
             <th *ngFor="let header of header_list">{{header.column_label}}  <i *ngIf="header.sortable" class="fa fa-sort" aria-hidden="true"></i></th>
-            <th *ngIf="actions">Action</th>
+             <th *ngIf="actions">Action</th>
+            <!-- <th *ngFor="let (header, value) of header_list[0]">{{header}} </th> -->
           </tr>
         </thead>
         <tbody>
-          <tr *ngFor="let list of list_view   | dataFilter:namesearch ; let i=index">
+            <tr *ngFor="let items of list_view; let i=index">   
+                <td *ngIf="has_serial_no">{{i+1}}</td>        
+                <td *ngFor="let item of objectKeys(items)">{{items[item]}}</td>
+                <td>
+  
+                    <div class="dropdown">
+                      <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Action
+                        <span class=""></span></button>
+                      <ul class="dropdown-menu">
+                        <li *ngFor="let acts of btn_action">
+                          <a *ngIf="acts.type =='LINK'"
+                            class="dropdown-item" href="../vo_editprofile/{{acts.destination}}/{{items.id}}">{{acts.label}}</a>
+                            <!-- <a *ngIf="acts.type =='LINK' " class="dropdown-item"
+                            href="demo/{{acts.destination}}/{{list.id}}">{{acts.label}}</a> -->
+                            <a *ngIf="acts.type =='ACTION' && acts.label =='Block'"
+                            class="dropdown-item">{{acts.label}}</a></li>
+        
+                      </ul>
+                    </div>
+        
+                  </td>
+            </tr>
+          <!-- <tr *ngFor="let list of list_view  | dataFilter:namesearch ; let i=index">
             <td *ngIf="has_serial_no">{{i+1}}</td>
-           
-            <td>{{list.id}}</td>
+            <td *ngFor="let item of list | keys">{{list[item]}}</td>
+            <td *ngFor="let list of list_view | keys:list_view">{{list.id}}</td>
             <td>{{list.name}}</td>
             <td>{{list.mobile_number}}</td>
             <td>{{list.babypod_name}}</td>
@@ -41,17 +64,19 @@
                 <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Action
                   <span class=""></span></button>
                 <ul class="dropdown-menu">
-                  <li *ngFor="let acts of btn_action"><a *ngIf="acts.type =='LINK' && acts.label =='View'"
-                      class="dropdown-item" href="../vo_editprofile/{{list.id}}">{{acts.label}}</a><a
-                      *ngIf="acts.type =='LINK' && acts.label =='Edit'" class="dropdown-item"
-                      (click)="edit_pass(list)">{{acts.label}}</a><a *ngIf="acts.type =='ACTION' && acts.label =='Block'"
-                      class="dropdown-item" (click)="delete_record(list.id);">{{acts.label}}</a></li>
+                  <li *ngFor="let acts of btn_action">
+                    <a *ngIf="acts.type =='LINK' && acts.label =='View'"
+                      class="dropdown-item" href="../vo_editprofile/{{acts.destination}}/{{list.id}}">{{acts.label}}</a>
+                      <a *ngIf="acts.type =='LINK' " class="dropdown-item"
+                      href="demo/{{acts.destination}}/{{list.id}}">{{acts.label}}</a>
+                      <a *ngIf="acts.type =='ACTION' && acts.label =='Block'"
+                      class="dropdown-item">{{acts.label}}</a></li>
   
                 </ul>
               </div>
   
             </td>
-          </tr>
+          </tr> -->
         </tbody>
       </table>
       <!-- <div class ="pagination" style="float: right; margin-right: 2rem;">

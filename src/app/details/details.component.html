@@ -26,8 +26,15 @@
         <tbody>
           <tr *ngFor="let list of list_view   | dataFilter:namesearch ; let i=index">
             <td *ngIf="has_serial_no">{{i+1}}</td>
+            <td *ngIf="has_serial_no">{{i+1}}</td>
+            <td>{{list.id}}</td>
             <td>{{list.name}}</td>
-            <td>{{list.address}}</td>
+            <td>{{list.mobile_number}}</td>
+            <td>{{list.babypod_name}}</td>
+            <td>{{list.status_name}}</td>
+            <td>{{list.created_by_user_name}}</td>
+            <td>{{list.created_at}}</td>
+            <td>{{list.last_activity}}</td>
             <td>
   
               <div class="dropdown">

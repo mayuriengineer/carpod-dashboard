@@ -19,7 +19,7 @@ import { DemoComponent } from './demo/demo.component';
 import { FormsModule } from '@angular/forms';
 const Routes: Routes = [
   {
-    path: "demo/:state_name",
+    path: "demo/:state_name/:param1",
     component: DemoComponent
   },
  {

@@ -7,11 +7,10 @@ import { environment } from '../environments/environment.prod';
 import { Observable,Subject,BehaviorSubject } from 'rxjs';
 import { map } from 'rxjs/operators';
 import 'rxjs/add/operator/map';
+
 import 'rxjs/Rx';
 
-@Injectable({
-  providedIn: 'root'
-})
+@Injectable()
 export class ProjectService {
   private _getmenubyurl = `${environment.api}/getMenu`;
  
@@ -25,6 +24,13 @@ export class ProjectService {
     console.log(data);
     
     return this.http.get<any>(`${environment.api}`+'/openState?state_name='+data);
+    
+  }
+  get_vo_edit_view(data1){
+console.log(data1);
+
+    console.log(this.http.get<any>(`${environment.api}`));
+    return this.http.get<any>(`${environment.api}`+'/openState?state_name='+data1);
     
   }
 }

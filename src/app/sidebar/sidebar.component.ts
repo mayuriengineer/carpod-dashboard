@@ -18,32 +18,29 @@ import { count } from 'rxjs/operator/count';
 })
 export class SidebarComponent implements OnInit {
 
-  menu_list:any;
-  menu_nodes:any;
-  menu_nod:any;
-  constructor( private http: Http,private _router: Router, private _activatedroute: ActivatedRoute,
+  menu_list: any;
+  menu_nodes: any;
+  menu_nod: any;
+  constructor(private http: Http, private _router: Router, private _activatedroute: ActivatedRoute,
     private _ProjectService: ProjectService) { }
-    
+
   ngOnInit() {
 
     this.get_menu_data();
   }
-  get_menu_data()
-  {
+  get_menu_data() {
     this._ProjectService.get_menu_data()
-    .subscribe(
-       res => {
-console.log(res.ui.nodes);
-this.menu_list=res.ui;
+      .subscribe(
+        res => {
 
-this.menu_nodes=res.ui[1].nodes;
-this.menu_nod=res.ui[2].nodes;
-console.log(this.menu_list);
-console.log(this.menu_nodes);
-    
-      },
+          this.menu_list = res.ui;
+          this.menu_nodes = res.ui[1].nodes;
+          this.menu_nod = res.ui[2].nodes;
 
-  );
+
+        },
+
+      );
   }
 
 }

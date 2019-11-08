@@ -3,8 +3,7 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
-  production: false,
-  api : "http://15.206.129.207/carpod_backend/index.php/UI"
+  production: false
 };
 
 /*

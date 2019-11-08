@@ -21,7 +21,8 @@
             "assets": [
               "src/favicon.ico",
               "src/assets",
-              "src/_redirects"
+              "src/_redirect"
+
             ],
             "styles": [
               "node_modules/datatables.net-dt/css/jquery.dataTables.css"

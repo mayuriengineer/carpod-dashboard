@@ -13,39 +13,34 @@
       <div class="">
         <input class="pull-right form-control" placeholder="Search" type="text" [(ngModel)]="namesearch">
       </div>
-  
-      <table class="table" style="margin-top: 6rem;">
-        <thead>
-          <tr>
-            <th *ngIf="has_serial_no">No.</th>
-            <th *ngFor="let header of header_list">{{header.column_label}}  <i *ngIf="header.sortable" class="fa fa-sort" aria-hidden="true"></i></th>
-            <th *ngIf="actions">Actions</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr *ngFor="let list of list_view   | dataFilter:namesearch ; let i=index">
-            <td *ngIf="has_serial_no">{{i+1}}</td>           
-            <td *ngFor="let header of header_list">{{list[header.column_name]}}</td>
-            <td>
-  
-              <div class="dropdown">
-                <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Actions
-                  <span class=""></span></button>
-                <ul class="dropdown-menu">
-                  <li *ngFor="let acts of btn_action">
-                    <!-- <a *ngIf="acts.type =='LINK'" class="dropdown-item" href="../{{acts.destination}}/{{acts.param1}}">{{acts.label}}</a> </li> -->
-                    <a class="dropdown-item" href="../{{acts.destination}}/{{acts.param1}}">{{acts.label}}</a>
-                </ul>
-              </div>
-  
-            </td>
-          </tr>
-        </tbody>
-      </table>
-      <!-- <div class ="pagination" style="float: right; margin-right: 2rem;">
-          <pagination-controls (pageChange)="pageChanged($event)"></pagination-controls>
-        </div> -->
     </div>
 
+    <table class="table" style="margin-top: 6rem;">
+        <thead>
+            <tr>
+              <th *ngIf="has_serial_no">No.</th>
+              <th *ngFor="let header of header_list">{{header.column_label}}  <i *ngIf="header.sortable" class="fa fa-sort" aria-hidden="true"></i></th>
+              <th *ngIf="actions">Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let list of list_view   | dataFilter:namesearch ; let i=index">
+              <td *ngIf="has_serial_no">{{i+1}}</td>           
+              <td *ngFor="let header of header_list">{{list[header.column_name]}}</td>
+              <td>
     
+                <div class="dropdown">
+              <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Action<span
+                  class=""></span></button>
+              <ul class="dropdown-menu">
+                <li *ngFor="let acts of btn_action">
+                  <a *ngIf="acts.type =='LINK'" class="dropdown-item"
+                    href="../demo/{{acts.destination}}/{{items.id}}">{{acts.label}}</a>
+                  
+              </ul>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
   </div>

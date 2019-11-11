@@ -15,7 +15,9 @@ import { HttpModule } from "@angular/http";
     <div  *ngFor="let section of sections; let i=index">
     <h4>{{section}}</h4>
       <div class="form-group" *ngFor="let field of fields">
-          <field-builder *ngIf="i==field.section_index"  [field]="field" [form]="form"></field-builder>
+    
+          <field-builder *ngIf="i==field.section_index"  [field]="field" [form]="form" ></field-builder>
+         
       </div>
     </div>
       <div class="form-row"></div>
@@ -31,14 +33,18 @@ import { HttpModule } from "@angular/http";
   `,
 })
 export class DynamicFormBuilderComponent implements OnInit {
+  isDisabled = true;
   current_page: string;
   vehicle_id: any;
   page_number: any;
   all_data: any;
   id: any;
-  param1:any;
-  state_name:any;
-  sections:any;
+  param1: any;
+  state_name: any;
+  sections: any;
+  controller:any;
+  method:any;
+  identifier:any;
   constructor(private _router: Router, private _activatedroute: ActivatedRoute,
     private _app: AppComponent, private _ProjectService: ProjectService) { }
 
@@ -51,10 +57,10 @@ export class DynamicFormBuilderComponent implements OnInit {
     this.current_page = array[1];
     this._activatedroute.params.subscribe(params => {
       this.param1 = params['param1'];
-      console.log(this.param1);
-      
+
+
       this.state_name = params['state_name'];
-      console.log(this.state_name);
+
       this.get_vo_edit_view();
     });
     let fieldsCtrls = {};
@@ -71,21 +77,28 @@ export class DynamicFormBuilderComponent implements OnInit {
     }
     this.form = new FormGroup(fieldsCtrls);
   }
-  get_vo_edit_view()
-  {
-  this._ProjectService.get_vo_edit_view(this.state_name)
-  .subscribe(
-    res => {
-      console.log(res);
-      this.fields = res.edit_config.fields;
-      this.sections=res.edit_config.sections;
-      console.log(this.sections);
-      console.log(this.fields);
-    });
+  get_vo_edit_view() {
+    this._ProjectService.get_vo_edit_view(this.state_name)
+      .subscribe(
+        res => {
+          console.log(res);
+          this.fields = res.edit_config.fields;
+          this.sections = res.edit_config.sections;
+          this.controller=res.api_controller;
+          this.method=res.api_method;
+          this.identifier=res.identifier.id;
+
+        });
   }
-  onSubmit() {
+  onSubmit(value) {
 
+   this._ProjectService.onSubmit(this.controller,this.method,this.identifier,value)
+      .subscribe(
+        res => {
+          console.log(res);
+         alert("record submit sucessfully"); 
+        //  this._router.navigate(['/details/vo_masterlist']);
 
-
-  }
+        });
+     }
 }

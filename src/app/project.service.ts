@@ -12,7 +12,7 @@ import 'rxjs/Rx';
 
 @Injectable()
 export class ProjectService {
-  private _getmenubyurl = `${environment.api}/getMenu`;
+  private _getmenubyurl = `${environment.api}/UI/getMenu`;
  
   constructor(private http: HttpClient) { }
 
@@ -23,14 +23,19 @@ export class ProjectService {
   get_master_list_view(data){
     console.log(data);
     
-    return this.http.get<any>(`${environment.api}`+'/openState?state_name='+data);
+    return this.http.get<any>(`${environment.api}`+'/UI/openState?state_name='+data);
     
   }
   get_vo_edit_view(data1){
 console.log(data1);
 
     console.log(this.http.get<any>(`${environment.api}`));
-    return this.http.get<any>(`${environment.api}`+'/openState?state_name='+data1);
+    return this.http.get<any>(`${environment.api}`+'/UI/openState?state_name='+data1);
     
   }
+  onSubmit(data1,data2,data3,data){
+    console.log();
+   return this.http.post<any>(`${environment.api}`+'/'+data1+'/'+data2+'?id='+data3,data);
+        
+      }
 }

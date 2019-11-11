@@ -1,32 +1,27 @@
 <nav class="navbar navbar-inverse sidebar" role="navigation">
-    <div class="container-fluid">
+  <div class="container-fluid">
 
     <div class="collapse navbar-collapse" id="bs-sidebar-navbar-collapse-1">
-      <ul class="nav navbar-nav" >
-        <li class="dropdown" class="active" *ngFor="let menu of menu_list" >
-          <a *ngIf="menu.type =='LINK'" routerLink="dashboard">{{menu.name}}<span style="font-size:16px;" class="pull-right hidden-xs showopacity"></span></a>
-          
-          <a class="dropdown-toggle" data-toggle="dropdown" *ngIf="menu.type =='LABEL' " href="#">{{menu.name}}<span style="font-size:16px;" class="pull-right hidden-xs showopacity"></span></a>
-         
+      <ul class="nav navbar-nav">
+        <li class="dropdown" class="active" *ngFor="let menu of menu_list">
+          <a *ngIf="menu.type =='LINK'" routerLink="dashboard">{{menu.name}}<span style="font-size:16px;"
+              class="pull-right hidden-xs showopacity"></span></a>
+
+          <a class="dropdown-toggle" data-toggle="dropdown" *ngIf="menu.type =='LABEL' " href="#">{{menu.name}}<span
+              style="font-size:16px;" class="pull-right hidden-xs showopacity"></span></a>
+
           <ul class="dropdown-menu forAnimate" role="menu">
             <li *ngFor="let mayuri of menu.nodes">
-              <!-- <a  *ngIf="mayuri.type =='LINK' && mayuri.name=='Vehicle Owners'"  routerLink="">{{mayuri.name}}</a> -->
-              <a   [routerLink]="'details/'+mayuri.destination" >{{mayuri.name}}</a>
-              <!-- <a *ngIf="mayuri.type =='LINK' && mayuri.name=='Operators'"  href={{mayuri.destination}}>{{mayuri.name}}</a> -->
+
+              <a [routerLink]="'details/'+mayuri.destination">{{mayuri.name}}</a>
+
             </li>
-         
+
           </ul>
-          <!-- <a class="dropdown-toggle" data-toggle="dropdown" *ngIf="menu.type =='LABEL' && menu.name=='Fleet Management'" href="#">{{menu.name}}<span style="font-size:16px;" class="pull-right hidden-xs showopacity"></span></a>
-          <ul class="dropdown-menu forAnimate" role="menu">
-           
-                <li *ngFor="let mayuri of menu.nodes">
-              <a  [routerLink]="'details/'+mayuri.destination">{{mayuri.name}}</a>
-           </ul> -->
+
         </li>
-    
+
       </ul>
     </div>
   </div>
-  </nav>
-  
-  
+</nav>

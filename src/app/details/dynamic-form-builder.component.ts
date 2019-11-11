@@ -10,9 +10,11 @@ import { HttpModule } from "@angular/http";
 @Component({
   selector: 'dynamic-form-builder',
   template: `
+ <div  *ngFor="let section of sections; let i=index">
+ <h4>{{section}}</h4>
     <form (ngSubmit)="onSubmit(this.form.value)" novalidate [formGroup]="form" class="form-horizontal">
       <div class="form-group" *ngFor="let field of fields">
-          <field-builder [field]="field" [form]="form"></field-builder>
+          <field-builder *ngIf="i==field.section_index"  [field]="field" [form]="form"></field-builder>
       </div>
       <div class="form-row"></div>
       <div class="form-group row">
@@ -23,6 +25,7 @@ import { HttpModule } from "@angular/http";
         </div>
       </div>
     </form>
+    </div>
   `,
 })
 export class DynamicFormBuilderComponent implements OnInit {
@@ -31,6 +34,9 @@ export class DynamicFormBuilderComponent implements OnInit {
   page_number: any;
   all_data: any;
   id: any;
+  param1:any;
+  state_name:any;
+  sections:any;
   constructor(private _router: Router, private _activatedroute: ActivatedRoute,
     private _app: AppComponent, private _ProjectService: ProjectService) { }
 
@@ -38,6 +44,17 @@ export class DynamicFormBuilderComponent implements OnInit {
   form: FormGroup = new FormGroup({});
 
   ngOnInit() {
+    var temp = this._router.url;
+    var array = temp.split("/");
+    this.current_page = array[1];
+    this._activatedroute.params.subscribe(params => {
+      this.param1 = params['param1'];
+      console.log(this.param1);
+      
+      this.state_name = params['state_name'];
+      console.log(this.state_name);
+      this.get_vo_edit_view();
+    });
     let fieldsCtrls = {};
     for (let f of this.fields) {
       if (f.type != 'checkbox') {
@@ -52,8 +69,18 @@ export class DynamicFormBuilderComponent implements OnInit {
     }
     this.form = new FormGroup(fieldsCtrls);
   }
-
-
+  get_vo_edit_view()
+  {
+  this._ProjectService.get_vo_edit_view(this.state_name)
+  .subscribe(
+    res => {
+      console.log(res);
+      this.fields = res.edit_config.fields;
+      this.sections=res.edit_config.sections;
+      console.log(this.sections);
+      console.log(this.fields);
+    });
+  }
   onSubmit() {
 
 

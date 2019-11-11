@@ -20,6 +20,7 @@ export class DemoComponent implements OnInit {
   state_name: any;
   current_page: string;
   param1: any;
+  sections:any;
   constructor(private http: Http, private _router: Router, private _activatedroute: ActivatedRoute,
     private _ProjectService: ProjectService) {
     this.fields = [];
@@ -33,7 +34,10 @@ export class DemoComponent implements OnInit {
     this._ProjectService.get_vo_edit_view(this.state_name)
       .subscribe(
         res => {
+          console.log(res);
           this.fields = res.edit_config.fields;
+          this.sections=res.edit_config.sections;
+          console.log(this.sections);
         });
 
     this.form = new FormGroup({

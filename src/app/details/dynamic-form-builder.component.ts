@@ -10,12 +10,14 @@ import { HttpModule } from "@angular/http";
 @Component({
   selector: 'dynamic-form-builder',
   template: `
- <div  *ngFor="let section of sections; let i=index">
- <h4>{{section}}</h4>
+
     <form (ngSubmit)="onSubmit(this.form.value)" novalidate [formGroup]="form" class="form-horizontal">
+    <div  *ngFor="let section of sections; let i=index">
+    <h4>{{section}}</h4>
       <div class="form-group" *ngFor="let field of fields">
           <field-builder *ngIf="i==field.section_index"  [field]="field" [form]="form"></field-builder>
       </div>
+    </div>
       <div class="form-row"></div>
       <div class="form-group row">
         <div class="col-md-3"></div>
@@ -25,7 +27,7 @@ import { HttpModule } from "@angular/http";
         </div>
       </div>
     </form>
-    </div>
+   
   `,
 })
 export class DynamicFormBuilderComponent implements OnInit {

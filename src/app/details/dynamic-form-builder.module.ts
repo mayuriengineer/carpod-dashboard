@@ -12,7 +12,7 @@ import { FileComponent } from './atoms/file';
 import { CheckBoxComponent } from './atoms/checkbox';
 import { DatepickerComponent } from './atoms/datepicker';
 import { TimepickerComponent } from './atoms/timepicker';
-import { DatetimepickerComponent } from './atoms/datetimepicker';
+
 import { RadioComponent } from './atoms/radio';
 import { HttpModule } from '@angular/http';
 import { DataTablesModule } from 'angular-datatables';
@@ -55,7 +55,7 @@ const Routes: Routes = [
     RadioComponent,
     DatepickerComponent,
     TimepickerComponent,
-    DatetimepickerComponent,
+ 
 
 
 

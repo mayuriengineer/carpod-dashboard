@@ -6,9 +6,13 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { DynamicFormBuilderComponent } from './dynamic-form-builder.component';
 import { FieldBuilderComponent } from './field-builder/field-builder.component';
 import { TextBoxComponent } from './atoms/textbox';
+
 import { DropDownComponent } from './atoms/dropdown';
 import { FileComponent } from './atoms/file';
 import { CheckBoxComponent } from './atoms/checkbox';
+import { DatepickerComponent } from './atoms/datepicker';
+import { TimepickerComponent } from './atoms/timepicker';
+import { DatetimepickerComponent } from './atoms/datetimepicker';
 import { RadioComponent } from './atoms/radio';
 import { HttpModule } from '@angular/http';
 import { DataTablesModule } from 'angular-datatables';
@@ -49,6 +53,11 @@ const Routes: Routes = [
     DemoComponent,
     FileComponent,
     RadioComponent,
+    DatepickerComponent,
+    TimepickerComponent,
+    DatetimepickerComponent,
+
+
 
   ],
   exports: [DynamicFormBuilderComponent],

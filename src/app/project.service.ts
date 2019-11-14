@@ -26,6 +26,15 @@ export class ProjectService {
     return this.http.get<any>(`${environment.api}`+'/UI/openState?state_name='+data);
     
   }
+  
+  load_list_view(controller, method, params_obj) {
+    return this.http.post<any>(`${environment.api}`+ controller + '/' + method, params_obj);    
+  }
+  
+  on_screen_operation(controller, method, param1Label, param1Value) {
+    return this.http.get<any>(`${environment.api}` + controller + '/' + method + '?' + param1Label + "=" + param1Value);    
+  }
+  
   get_vo_edit_view(data1){
 
     return this.http.get<any>(`${environment.api}`+'/UI/openState?state_name='+data1);

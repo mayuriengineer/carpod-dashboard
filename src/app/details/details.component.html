@@ -1,10 +1,13 @@
-<div class="container">
+
+<div class="content-wrapper">
   <div class="clearfix">
     <div class="col-md-3 col-xs-12 col-sm-12">
       <div class="button-list pull-left">
         <a *ngIf="add_option" class="btn btn-primary"   href="../list/add/{{add_option.destination}}"
           role="button">{{add_option.label}}</a>
       </div>
+
+
     </div>
 
     <div class="col-md-6 hidden-xs hidden-sm"></div>
@@ -15,32 +18,45 @@
       </div>
     </div>
 
-    <table class="table" style="margin-top: 6rem;">
-        <thead>
-            <tr>
-              <th *ngIf="has_serial_no">No.</th>
-              <th *ngFor="let header of header_list">{{header.column_label}}  <i *ngIf="header.sortable" class="fa fa-sort" aria-hidden="true"></i></th>
-              <th *ngIf="actions">Actions</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr *ngFor="let list of list_view   | dataFilter:namesearch ; let i=index">
-              <td *ngIf="has_serial_no">{{i+1}}</td>           
-              <td *ngFor="let header of header_list">{{list[header.column_name]}}</td>
-              <td>
-    
-                <div class="dropdown">
-              <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Action<span
-                  class=""></span></button>
-              <ul class="dropdown-menu">
+    <table class="table table-bordered">
+      <thead>
+        <tr>
+          <th *ngIf="has_serial_no">No.</th>
+          <th *ngFor="let header of header_list">
+            {{header.column_label}} 
+            <span *ngIf="header.sortable" class="clickable" (click)="sort_list_view(header)">
+              <span *ngIf="params_object.order[header.column_name]; else noSortOption">
+                <i *ngIf="params_object.order[header.column_name] && params_object.order[header.column_name]=='DESC'" class="fas fa-sort-amount-down" aria-hidden="true"></i>
+                <i *ngIf="params_object.order[header.column_name] && params_object.order[header.column_name]=='ASC'" class="fas fa-sort-amount-up" aria-hidden="true"></i>
+              </span>
+              <ng-template #noSortOption>
+                <span>
+                  <i class="fas fa-long-arrow-alt-up" aria-hidden="true"></i>
+                  <i class="fas fa-long-arrow-alt-down" aria-hidden="true"></i>
+                </span>
+              </ng-template>
+            </span>
+          </th>
+          <th *ngIf="actions">Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let list of list_view   | dataFilter:namesearch ; let i=index">
+          <td *ngIf="has_serial_no">{{i+1}}</td>           
+          <td *ngFor="let header of header_list">{{list[header.column_name]}}</td>
+          <td *ngIf="actions">  
+            <div class="dropdown">
+              <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Actions
+                <span class="caret"></span></button>
+              <ul class="dropdown-menu dropdown-menu-right">
                 <li *ngFor="let acts of btn_action">
-                  <a *ngIf="acts.type =='LINK'" class="dropdown-item"
-                    href="../list/page/{{acts.destination}}/{{list.id}}">{{acts.label}}</a>
-                  
+                  <a *ngIf="acts.type =='LINK'" target="_blank" class="dropdown-item" href="../details/{{acts.destination}}/{{list[acts.param1]}}">{{acts.label}}</a>
+                  <a *ngIf="acts.type !='LINK'" class="dropdown-item" href="javascription:void(0)" (click)="on_screen_operation(acts, list)">{{acts.label}}</a>
               </ul>
             </div>
+
           </td>
         </tr>
       </tbody>
-    </table>
+    </table>      
   </div>

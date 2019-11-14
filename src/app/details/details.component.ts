@@ -18,8 +18,7 @@ import { count } from 'rxjs/operator/count';
 })
 export class DetailsComponent implements OnInit, OnDestroy {
   objectKeys = Object.keys;
-  state_name: any;
-  list_view: any;
+  
   header_list: any;
   namesearch: any;
   has_serial_no: any;
@@ -29,6 +28,14 @@ export class DetailsComponent implements OnInit, OnDestroy {
   has_search: any;
   mainitem: any;
   length: any;
+
+  state_name:any;
+  list_view:any;
+  list_api_controller:any;
+  list_api_method:any;
+ 
+  total_results:any;
+  total_pages:any;
   config: any;
   page_number: any;
   records_per_page: any;
@@ -65,10 +72,11 @@ export class DetailsComponent implements OnInit, OnDestroy {
       );
 
   }
-  ngOnDestroy() {
-  }
-  delete_record(id) {
 
+  ngOnDestroy() {}
+
+  delete_record(id){
+   console.log(id);
 
   }
 

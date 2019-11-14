@@ -1,8 +1,32 @@
 <div class="col-sm-12">
   <div class="card">
-    
-    <div class="card-body" *ngIf="fields.length > 0">
-      <dynamic-form-builder [fields]="getFields()"></dynamic-form-builder>
+    <div *ngIf="edit_view=='EDIT'">
+      <div class="card-body" *ngIf="fields.length > 0">
+        <dynamic-form-builder [fields]="getFields()"></dynamic-form-builder>
+      </div>
+
+    </div>
+    <div *ngIf="tabs_view=='TABS'">
+
+        <div class="card-box">
+            <div class="button-list pull-left">
+              <div class="nav navbar-nav">
+                <!-- <ul   >
+                  <li ><a  ></a></li>
+                
+                </ul> -->
+                <ul class="list" class="nav nav-tabs customTab" role="tablist" >
+                    <ng-container *ngFor="let tab of tabs">
+                  <li role="presentation"  ><a   data-toggle="tab-1" (click)="openDialog()"href="../list/page/{{tab.destination}}/{{tab.param1}}">{{tab.label}}</a></li>
+                  </ng-container> 
+                
+
+                </ul>
+              </div>
+            </div>
+            
+          </div>
+
     </div>
   
   </div>

@@ -20,15 +20,17 @@ export const routes: Routes = [
       component : DashboardComponent
     },
     {
-      path: "details/:name",
-      component : DetailsComponent
+      path: "list/:name",
+      component : DetailsComponent,
+      
+      
     },
     {
       path: "vo_addnew",
       component : VoAddnewComponent
     },
     {
-      path: 'app',
+      path: 'list',
       loadChildren:
         './details/dynamic-form-builder.module'
     },

@@ -47,6 +47,7 @@ export class DetailsComponent implements OnInit, OnDestroy {
     this._ProjectService.get_master_list_view(this.state_name)
       .subscribe(
         res => {
+          console.log(res);
           this.mainitem = res;
           this.list_view = this.mainitem.data.result;
 

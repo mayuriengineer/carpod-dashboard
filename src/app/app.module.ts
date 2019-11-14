@@ -2,20 +2,16 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { ReactiveFormsModule } from '@angular/forms';
  import { AppRoutingModule } from './app-routing.module';
-// dynamic form builder
-//import {APP_EXTRA_OPTIONS, APP_ROUTES} from './app-routing.module';
+
 import { HttpClientModule } from '@angular/common/http';
-//import {APP_EXTRA_OPTIONS, APP_ROUTES} from './app-routing.module';
+
 import { RouterModule } from '@angular/router';
-//import { CarbodviewComponent } from './carbodview/carbodview.component';
+
 import { AppComponent } from './app.component';
 import { HelloComponent } from './hello.component';
-//import { MultiformComponent } from './multiform/multiform.component';
-////import {NgxPaginationModule} from 'ngx-pagination';
-//import { FormsModule } from '@angular/forms';
+
 import { ProjectService } from './project.service';
-//import {DataTablesModule} from 'angular-datatables';
-//import { DataFilterPipe } from './carbodview/dataFilter.pipe';
+
 import { Person } from 'person';
 
 import { SidebarComponent } from './sidebar/sidebar.component';
@@ -30,6 +26,8 @@ import {NgxPaginationModule} from 'ngx-pagination';
 import { VoAddnewComponent } from './vo-addnew/vo-addnew.component';
 import { DynamicFormBuilderModule } from './details/dynamic-form-builder.module';
 import  { KeysPipe } from './Keys.pipe';
+import { TabsComponent } from './tabs/tabs.component';
+
 @NgModule({
   imports:      [ BrowserModule, ReactiveFormsModule, HttpClientModule,
     HttpModule,
@@ -42,7 +40,10 @@ import  { KeysPipe } from './Keys.pipe';
     VoMasterlistComponent,
     DataFilterPipe,
     KeysPipe,
-    VoAddnewComponent,],
+    VoAddnewComponent,
+    TabsComponent,
+    
+    ],
     providers: [ProjectService
     ],
   bootstrap:    [ AppComponent ]

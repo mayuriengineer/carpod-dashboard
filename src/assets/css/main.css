@@ -1,0 +1,10 @@
+html,
+body {
+  height: 100%;
+}
+
+body {
+  background-color: #fff;
+ 
+  font-family: Helvetica, 'Helvetica Neue', Arial, sans-serif;
+}

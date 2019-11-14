@@ -77,28 +77,67 @@ export class DynamicFormBuilderComponent implements OnInit {
     }
     this.form = new FormGroup(fieldsCtrls);
   }
-  get_vo_edit_view() {
-    this._ProjectService.get_vo_edit_view(this.state_name)
+  
+    get_vo_edit_view() {
+      if (this.param1)
+  {
+      this._ProjectService.get_vo_edit_view(this.state_name)
+        .subscribe(
+          res => {
+            console.log(res);
+            this.fields = res.edit_config.fields;
+            this.sections = res.edit_config.sections;
+            this.controller=res.api_controller;
+            this.method=res.api_method;
+            this.identifier=res.identifier.id;
+  
+          });
+    }
+
+    else{
+      this._ProjectService.get_vo_add_view(this.state_name)
       .subscribe(
         res => {
-          console.log(res);
-          this.fields = res.edit_config.fields;
-          this.sections = res.edit_config.sections;
-          this.controller=res.api_controller;
-          this.method=res.api_method;
-          this.identifier=res.identifier.id;
+          this.fields = res.add_config.fields;
+            this.sections = res.add_config.sections;   
+            this.controller=res.api_controller;
+            this.method=res.api_method;
+
+            
 
         });
+    }
+    
   }
+ 
   onSubmit(value) {
-
-   this._ProjectService.onSubmit(this.controller,this.method,this.identifier,value)
+if (this.param1)
+{
+  console.log('edit');
+  this._ProjectService.onSubmit(this.controller,this.method,this.identifier,value)
       .subscribe(
         res => {
+         
           console.log(res);
          alert("record submit sucessfully"); 
         //  this._router.navigate(['/details/vo_masterlist']);
 
         });
      }
+     else
+     {
+      console.log('add');
+      console.log(value);
+      this._ProjectService.onaddSubmit(this.controller,this.method,value)
+      .subscribe(
+        res => {
+       
+          console.log(res);
+        
+        //  this._router.navigate(['/details/vo_masterlist']);
+
+        });
+     }
+}
+   
 }

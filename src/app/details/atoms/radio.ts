@@ -6,7 +6,7 @@ import { FormGroup } from '@angular/forms';
     template: `
       <div [formGroup]="form">
         <div class="form-check" *ngFor="let opt of field.options">
-          <input class="form-check-input" [name]="field.name" type="radio" [value]="opt.key" >
+          <input class="form-check-input" [name]="field.name" type="radio" [checked]="opt.key ===field.value"  [value]="opt.key" >
           <label class="form-check-label">
             {{opt.label}}
           </label>

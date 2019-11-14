@@ -21,14 +21,24 @@ import { Routes } from '@angular/router';
 import { VoEditprofileComponent } from './vo-editprofile/vo-editprofile.component';
 import { DemoComponent } from './demo/demo.component';
 import { FormsModule } from '@angular/forms';
+import { AddNewComponent } from './add-new/add-new.component';
+import { TabsViewComponent } from './tabs-view/tabs-view.component';
 const Routes: Routes = [
   {
-    path: "demo/:state_name/:param1",
+    path: "list/page/:state_name/:param1",
     component: DemoComponent
   },
  {
     path: "VoEditprofile",
     component: VoEditprofileComponent
+  },
+  {
+    path: "list/add/:state_name",
+    component: AddNewComponent
+  },
+  {
+    path: "tabs/:state_name",
+    component: TabsViewComponent
   },
 
 ];
@@ -55,7 +65,8 @@ const Routes: Routes = [
     RadioComponent,
     DatepickerComponent,
     TimepickerComponent,
- 
+    AddNewComponent,
+    TabsViewComponent
 
 
 

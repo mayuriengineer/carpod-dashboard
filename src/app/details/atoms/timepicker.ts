@@ -6,7 +6,7 @@ import { FormGroup } from '@angular/forms';
     selector: 'timepicker',
     template: `
       <div [formGroup]="form">
-        <input *ngIf="!field.multiline"[readOnly]="!field.editable"  [attr.type]="field.type" class="form-control"  [id]="field.name" [name]="field.name" [readOnly]="!field.editable"  [formControlName]="field.name">
+        <input [readOnly]="!field.editable"  [attr.type]="field.type" class="form-control"  [id]="field.name" [name]="field.name" [readOnly]="!field.editable"  [formControlName]="field.name">
       
       </div> 
     `

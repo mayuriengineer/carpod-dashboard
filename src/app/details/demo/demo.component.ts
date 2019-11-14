@@ -19,8 +19,13 @@ export class DemoComponent implements OnInit {
   public fields: any;
   state_name: any;
   current_page: string;
+  tabs:any;
   param1: any;
-  sections:any;
+  edit_view:any;
+  tabs_view:any;
+  active:any;
+  showinternal: any = true;
+ sections:any;
   constructor(private http: Http, private _router: Router, private _activatedroute: ActivatedRoute,
     private _ProjectService: ProjectService) {
     this.fields = [];
@@ -31,20 +36,39 @@ export class DemoComponent implements OnInit {
       this.param1 = params['param1'];
       this.state_name = params['state_name'];
     });
+    
     this._ProjectService.get_vo_edit_view(this.state_name)
       .subscribe(
         res => {
-          console.log(res);
-          this.fields = res.edit_config.fields;
-          this.sections=res.edit_config.sections;
-          console.log(this.sections);
+         console.log(res);
+          if(res.view=='EDIT'){
+            this.edit_view=res.view;
+            console.log(res);
+            this.fields = res.edit_config.fields;
+            this.sections=res.edit_config.sections;
+            // console.log(this.sections);
+          }
+          else if(res.view=='TABS')
+          {
+            this.tabs_view=res.view;
+            this.tabs = res.tabs_config.tabs;
+           
+            console.log(res);
+           
+            
+          }
+          
+         
         });
 
     this.form = new FormGroup({
+    
       fields: new FormControl(this.fields)
+    
     })
     this.unsubcribe = this.form.valueChanges.subscribe((update) => {
       this.fields = JSON.parse(update.fields);
+    
     });
   }
   ngOnInit() {

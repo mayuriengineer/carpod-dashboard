@@ -2,7 +2,7 @@
   <div class="clearfix">
     <div class="col-md-3 col-xs-12 col-sm-12">
       <div class="button-list pull-left">
-        <a *ngIf="add_option" class="btn btn-primary" href={{add_option.destination}}
+        <a *ngIf="add_option" class="btn btn-primary"   href="../list/add/{{add_option.destination}}"
           role="button">{{add_option.label}}</a>
       </div>
     </div>
@@ -35,7 +35,7 @@
               <ul class="dropdown-menu">
                 <li *ngFor="let acts of btn_action">
                   <a *ngIf="acts.type =='LINK'" class="dropdown-item"
-                    href="../demo/{{acts.destination}}/{{list.id}}">{{acts.label}}</a>
+                    href="../list/page/{{acts.destination}}/{{list.id}}">{{acts.label}}</a>
                   
               </ul>
             </div>

@@ -16,7 +16,7 @@ import { Component, Input, OnInit } from '@angular/core';
       <file *ngSwitchCase="'file'" [field]="field" [form]="form"></file>
       <datepicker *ngSwitchCase="'date'" [field]="field" [form]="form"></datepicker>
       <timepicker *ngSwitchCase="'time'" [field]="field" [form]="form"></timepicker>
-      
+     
       <div class="alert alert-danger my-1 p-2 fadeInDown animated" *ngIf="!isValid && isDirty">{{field.label}} is required</div>
     </div>
   </div>
